@@ -1,0 +1,24 @@
+{
+  "cert": {
+    "type": "",
+    "projectId": "",
+    "privateKeyId": "",
+    "privateKey": "",
+    "clientEmail": "",
+    "clientId": "",
+    "authUri": "",
+    "tokenUri": "",
+    "authProviderX509CertUrl": "",
+    "clientC509CertUrl": ""
+  },
+  "params": {
+    "apiKey": "",
+    "authDomain": "",
+    "databaseURL": "",
+    "projectId": "",
+    "storageBucket": "",
+    "messagingSenderId": "",
+    "appId": "",
+    "measurementId": ""
+  }
+}

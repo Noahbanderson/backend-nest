@@ -1,0 +1,12 @@
+FROM node:14 AS builder
+WORKDIR /home/src/backend
+COPY package.json package-lock.json tsconfig.json  ./
+RUN npm install --only=production --silent
+COPY ./ ./
+RUN npm run build
+
+
+FROM node:14-alpine
+WORKDIR /home/src/backend
+COPY --from=builder /home/src/backend ./
+CMD ["npm", "run", "start:prod"]
