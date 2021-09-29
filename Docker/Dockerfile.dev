@@ -1,0 +1,8 @@
+FROM node:14-alpine
+WORKDIR /home/src/backend
+COPY package.json package-lock.json tsconfig.json ./
+RUN npm install --silent
+EXPOSE 9229
+EXPOSE 9339
+CMD ["npm", "run", "start:debug"]
+# CMD ["sh"]
