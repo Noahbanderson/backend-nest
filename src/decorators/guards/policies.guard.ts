@@ -2,6 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { KeyRegistry } from 'config/constants'
 import { CaslAbilityFactory, AppAbility, PolicyHandler } from 'security/authorization'
+import { GqlExecutionContext } from '@nestjs/graphql'
 
 import { AppRequest } from 'types/general.types'
 
@@ -19,7 +20,8 @@ export class PoliciesGuard implements CanActivate {
 				context.getHandler(),
 			) || []
 
-		const { user } = context.switchToHttp().getRequest<AppRequest>()
+		const ctx = GqlExecutionContext.create(context)
+		const { user } = ctx.getArgByIndex(2).req as AppRequest
 		// const ability = await this.caslAbilityFactory.createForUserFirebase(user.firebaseUser)
 		const ability = await this.caslAbilityFactory.createForUser(user)
 

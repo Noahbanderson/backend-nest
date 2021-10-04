@@ -21,17 +21,17 @@ firebaseAdmin.initializeApp({
 })
 
 async function api() {
-	const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true })
+	const app = await NestFactory.create<NestExpressApplication>(AppModule)
 	const isProduction = process.env.NODE_ENV === 'prod'
-	app.useGlobalPipes(
-		new ValidationPipe({
-			whitelist: true,
-			transform: true,
-			enableDebugMessages: !isProduction,
-			skipMissingProperties: false,
-			disableErrorMessages: isProduction,
-		}),
-	)
+	// app.useGlobalPipes(
+	// 	new ValidationPipe({
+	// 		whitelist: true,
+	// 		transform: true,
+	// 		enableDebugMessages: !isProduction,
+	// 		skipMissingProperties: false,
+	// 		disableErrorMessages: isProduction,
+	// 	}),
+	// )
 
 	app.setGlobalPrefix('v1')
 	if (isProduction) {

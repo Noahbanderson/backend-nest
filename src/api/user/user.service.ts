@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
-
-import { CreateUserDto, UpdateUserDto } from '../user/dto'
+import { InjectRepository } from '@nestjs/typeorm'
 
 import { MyFirstJobHandler } from 'worker/jobs/handlers/my-first.handler'
-import { InjectRepository } from '@nestjs/typeorm'
-import { UserRepository } from './repositories/user.repository'
+
+import { UserRepository } from './repositories'
+import { CreateUserInput, UpdateUserInput } from './dto'
 
 @Injectable()
 export class UserService {
@@ -14,9 +14,13 @@ export class UserService {
 		private myFirstJob: MyFirstJobHandler,
 	) {}
 
-	async create(createUserDto: CreateUserDto) {
-		const user = await this.userRepository.create(createUserDto).save()
+	async foo() {
+		await this.myFirstJob.enqueue({ customerId: 1 })
 		return { success: true }
+	}
+
+	async create(createUserInput: CreateUserInput) {
+		return await this.userRepository.create(createUserInput).save()
 	}
 
 	findAll() {
@@ -27,17 +31,11 @@ export class UserService {
 		return await this.userRepository.findOne(uid)
 	}
 
-	update(token: string, updateUserDto: UpdateUserDto) {
-		console.log(updateUserDto)
-		return `This action updates a #${token} user`
+	update(uid: string, _updateUserInput: UpdateUserInput) {
+		return `This action updates a #${uid} user`
 	}
 
-	remove(token: string) {
-		return `This action removes a #${token} user`
-	}
-
-	async foo() {
-		await this.myFirstJob.enqueue({ customerId: 1 })
-		return { success: true }
+	remove(uid: string) {
+		return `This action removes a #${uid} user`
 	}
 }

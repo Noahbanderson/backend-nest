@@ -1,0 +1,60 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreatePantryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateUserInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  uid: ID!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Mutation {
+  createPantry(createPantryInput: CreatePantryInput!): Pantry!
+  createUser(createUserInput: CreateUserInput!): User!
+  removePantry(id: Int!): Pantry!
+  removeUser(uid: ID!): User!
+  updatePantry(updatePantryInput: UpdatePantryInput!): Pantry!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
+type Pantry {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  pantry(id: Int!): Pantry!
+  user(uid: ID!): User!
+}
+
+input UpdatePantryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateUserInput {
+  email: String
+  firstName: String
+  lastName: String
+  uid: ID!
+}
+
+type User {
+  created_at: Date!
+  email: String!
+  firstName: String!
+  isAdmin: Boolean!
+  lastName: String!
+  uid: ID!
+  updated_at: Date!
+}

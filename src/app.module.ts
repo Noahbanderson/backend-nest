@@ -1,7 +1,11 @@
+import { join } from 'path'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { BullModule } from '@nestjs/bull'
+import { GraphQLModule } from '@nestjs/graphql'
 import { APP_GUARD } from '@nestjs/core'
+
+import { AppLogger } from 'logger'
 
 import { ConfigModule } from 'config/config.module'
 import { ConfigService } from 'config/config.service'
@@ -10,10 +14,13 @@ import { FirebaseAuthGuard, FirebaseAuthStrategy, AuthorizationModule } from 'se
 
 import { JobsModule } from 'worker/jobs/jobs.module'
 
-import { UserModule } from 'api/user/user.module'
+import { DateScalar } from 'graphql/date.scalar'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+
+import { UserModule } from 'api/user/user.module'
+import { PantryModule } from './api/pantry/pantry.module'
 
 @Module({
 	imports: [
@@ -45,9 +52,36 @@ import { AppService } from './app.service'
 				},
 			}),
 		}),
+		GraphQLModule.forRootAsync({
+			imports: [ConfigModule],
+			inject: [ConfigService],
+			useFactory: async (configService: ConfigService) => ({
+				autoSchemaFile: join(process.cwd(), 'src/generated/schema.gql'),
+				sortSchema: true,
+				debug: configService.get('NODE_ENV') !== 'prod',
+				playground: configService.get('NODE_ENV') !== 'prod',
+				useGlobalPrefix: true,
+				logger: new AppLogger(),
+				plugins: [
+					{
+						async requestDidStart({ logger, request }) {
+							logger.debug(request.query)
+							logger.debug(request.variables)
+							// return {
+							//   willSendResponse({logger, response}) {
+							//     logger.debug(JSON.stringify(response, null, 2))
+							//     return
+							//   },
+							// }
+						},
+					},
+				],
+			}),
+		}),
 		JobsModule,
-		UserModule,
 		AuthorizationModule,
+		UserModule,
+		PantryModule,
 	],
 	controllers: [AppController],
 	providers: [
@@ -58,6 +92,7 @@ import { AppService } from './app.service'
 			provide: APP_GUARD,
 			useClass: FirebaseAuthGuard,
 		},
+		DateScalar,
 	],
 })
 export class AppModule {}
