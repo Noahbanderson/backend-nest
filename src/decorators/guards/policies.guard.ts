@@ -1,10 +1,16 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
+import {
+	Injectable,
+	CanActivate,
+	ExecutionContext,
+	BadRequestException,
+} from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { KeyRegistry } from 'config/constants'
 import { CaslAbilityFactory, AppAbility, PolicyHandler } from 'security/authorization'
-import { GqlExecutionContext } from '@nestjs/graphql'
+import { GqlExecutionContext, GqlContextType } from '@nestjs/graphql'
 
 import { AppRequest } from 'types/general.types'
+import { User } from 'api/user/entities'
 
 @Injectable()
 export class PoliciesGuard implements CanActivate {
@@ -20,8 +26,20 @@ export class PoliciesGuard implements CanActivate {
 				context.getHandler(),
 			) || []
 
-		const ctx = GqlExecutionContext.create(context)
-		const { user } = ctx.getArgByIndex(2).req as AppRequest
+		const type = context.getType() as GqlContextType
+
+		let user: User
+
+		if (type === 'graphql') {
+			user = (GqlExecutionContext.create(context).getArgByIndex(2).req as AppRequest).user
+		} else if (type === 'http') {
+			user = context.switchToHttp().getRequest<AppRequest>().user
+		} else {
+			throw new BadRequestException(
+				`Unknown context type: ${type}. Expecting: http | ws | rpc | graphql`,
+			)
+		}
+
 		// const ability = await this.caslAbilityFactory.createForUserFirebase(user.firebaseUser)
 		const ability = await this.caslAbilityFactory.createForUser(user)
 

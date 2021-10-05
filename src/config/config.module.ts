@@ -3,6 +3,8 @@ import { DynamicModule, Global, Module } from '@nestjs/common'
 import { ConfigService } from './config.service'
 import { KeyRegistry } from './constants'
 
+import { TypeOrmConfigService, BullConfigService, GqlConfigService } from './services'
+
 export interface ConfigModuleOptions {
 	folder: string
 }
@@ -19,8 +21,11 @@ export class ConfigModule {
 					useValue: options,
 				},
 				ConfigService,
+				TypeOrmConfigService,
+				BullConfigService,
+				GqlConfigService,
 			],
-			exports: [ConfigService],
+			exports: [ConfigService, TypeOrmConfigService, BullConfigService, GqlConfigService],
 		}
 	}
 }

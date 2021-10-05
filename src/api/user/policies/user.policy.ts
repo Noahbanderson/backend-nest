@@ -1,5 +1,6 @@
-import { Action, AppAbility } from 'security/authorization'
-import { User } from '../entities/user.entity'
+import { Action, AppAbility } from 'security'
+
+import { User } from '../entities'
 
 export class UserPolicyManager {
 	static manage = (ability: AppAbility) => ability.can(Action.Manage, User)

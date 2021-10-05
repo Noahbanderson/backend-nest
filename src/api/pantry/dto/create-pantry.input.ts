@@ -1,7 +1,10 @@
 import { InputType, Int, Field } from '@nestjs/graphql'
+import { Max } from 'class-validator'
 
 @InputType()
 export class CreatePantryInput {
-	@Field(() => Int, { description: 'Example field (placeholder)' })
+	/** Example field (placeholder) */
+	@Max(10)
+	@Field(() => Int)
 	exampleField: number
 }

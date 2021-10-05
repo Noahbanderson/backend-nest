@@ -3,7 +3,6 @@
 # ------------------------------------------------------
 
 input CreatePantryInput {
-  """Example field (placeholder)"""
   exampleField: Int!
 }
 
@@ -37,7 +36,6 @@ type Query {
 }
 
 input UpdatePantryInput {
-  """Example field (placeholder)"""
   exampleField: Int
   id: Int!
 }
