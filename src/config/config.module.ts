@@ -1,7 +1,9 @@
 import { DynamicModule, Global, Module } from '@nestjs/common'
 
-import { ConfigService } from './config.service'
 import { KeyRegistry } from './constants'
+
+import { ConfigService } from './config.service'
+import { TypeOrmConfigService, BullConfigService } from './services'
 
 export interface ConfigModuleOptions {
 	folder: string
@@ -19,8 +21,10 @@ export class ConfigModule {
 					useValue: options,
 				},
 				ConfigService,
+				TypeOrmConfigService,
+				BullConfigService,
 			],
-			exports: [ConfigService],
+			exports: [ConfigService, TypeOrmConfigService, BullConfigService],
 		}
 	}
 }

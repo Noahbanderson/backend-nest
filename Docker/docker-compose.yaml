@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/home/src/backend
     ports:
-      - "3001:3001"
+      - "3333:3333"
       - "9229:9229"
       - "9339:9339"
     depends_on:

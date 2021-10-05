@@ -4,6 +4,7 @@ import { Strategy, ExtractJwt } from 'passport-firebase-jwt'
 import { auth } from 'firebase-admin'
 import { KeyRegistry } from 'config/constants'
 import { UserService } from 'api/user/user.service'
+import { AppLogger } from 'logger'
 
 // prettier-ignore
 @Injectable()
@@ -16,7 +17,7 @@ export class FirebaseAuthStrategy extends PassportStrategy(Strategy, KeyRegistry
 		const firebaseUser = await auth()
 			.verifyIdToken(token, true)
 			.catch((err: any) => {
-				console.log(err)
+				AppLogger.error(err)
 				throw new UnauthorizedException(err.message)
 			})
 		if (!firebaseUser) throw new UnauthorizedException()

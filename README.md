@@ -48,6 +48,10 @@ providers are to import a file inside the same directory as the module
 
 imports are to import a file from outside the scope of the module directory, but the file as to be exported from the module it belongs to. and on the import side, you import the module, not the file itself. 
 
+@CheckPolicies cannot be used in conjunction with @IsPublic
+
+Controllers and Resolvers handle authentication (presence or absence of `@IsPublic()`)
+
 ## Creating new resources
 
 ### CLI
