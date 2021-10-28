@@ -5,16 +5,20 @@ import dotenv from 'dotenv'
 import firebaseAdmin from 'firebase-admin'
 import helmet from 'helmet'
 import csurf from 'csurf'
-// import  compression from 'compression'
+// import compression from 'compression'
+
+import repl from './repl'
 
 import { Process } from 'config/config.types'
+
+import { AppLogger } from 'logger'
 
 import { AppModule } from 'app.module'
 import { WorkerAppModule } from 'worker/worker.app.module'
 
 import firebaseConfig from '../firebase.config.json'
 
-dotenv.config()
+dotenv.config({ path: `./config/${process.env.ENV}.env` })
 
 firebaseAdmin.initializeApp({
 	...firebaseConfig.params,
@@ -45,7 +49,11 @@ async function api() {
 		// app.use(compression());
 	}
 
-	await app.listen(3001, '0.0.0.0')
+	const port = process.env.PORT ?? '3333'
+
+	await app.listen(port, '0.0.0.0')
+
+	AppLogger.log(`Backend now listening on port: ${port}`)
 }
 
 async function worker() {
@@ -54,9 +62,6 @@ async function worker() {
 	})
 	await app.listen(3002, '0.0.0.0')
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-async function repl() {}
 
 async function main() {
 	;({

@@ -1,26 +1,33 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "attach",
-      "name": "Debug: nestjs - api",
-      "remoteRoot": "/src/app",
-      "localRoot": "${workspaceFolder}",
-      "protocol": "inspector",
-      "restart": true,
-      "skipFiles": ["<node_internals>/**"]
-    },
-    {
-      "type": "node",
-      "request": "attach",
-      "name": "Debug: nestjs - worker",
-      "remoteRoot": "/src/app",
-      "localRoot": "${workspaceFolder}",
-      "protocol": "inspector",
-      "restart": true,
-      "skipFiles": ["<node_internals>/**"],
-      "port": 9339
-    }
-  ]
- }
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Repl: nestjs",
+			"port": 9229,
+			"request": "attach",
+			"skipFiles": ["<node_internals>/**"],
+			"type": "pwa-node"
+		},
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Api: nestjs",
+			"remoteRoot": "/src/app",
+			"localRoot": "${workspaceFolder}",
+			"protocol": "inspector",
+			"restart": true,
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "Worker: nestjs",
+			"remoteRoot": "/src/app",
+			"localRoot": "${workspaceFolder}",
+			"protocol": "inspector",
+			"restart": true,
+			"skipFiles": ["<node_internals>/**"],
+			"port": 9339
+		}
+	]
+}

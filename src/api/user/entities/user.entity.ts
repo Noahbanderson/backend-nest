@@ -17,12 +17,6 @@ export class User extends BaseEntity {
 	@PrimaryColumn({ unique: true, nullable: false })
 	uid: string
 
-	@Column({ nullable: false })
-	firstName: string
-
-	@Column({ nullable: false })
-	lastName: string
-
 	@IsEmail()
 	@Column({ unique: true, nullable: false })
 	email: string

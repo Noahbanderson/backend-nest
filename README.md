@@ -50,6 +50,10 @@ imports are to import a file from outside the scope of the module directory, but
 
 @CheckPolicies cannot be used in conjunction with @IsPublic
 
+Controllers and Resolvers handle authentication (presence or absence of `@IsPublic()`)
+
+Services handle authorization (due for GQL's limitations)
+
 ## Creating new resources
 
 ### CLI
