@@ -66,9 +66,15 @@ $ nest g pr worker/jobs/handler/<name-of-your-job-handler>
 $ nest g resource api/<name-of-your-resource>
 ```
 
+## Requirements
+
+docker-compose cli
+
+node v14 or higher
+
 ## Setup
 
-firebase.config.json#cert can be found while setting up firebase web app
+firebase.config.json#cert can be found while setting up a service account. Project settings > Service accounts > "Generate new private key"
 
 firebase.config.json#params can be found on in your project settings under your web app.
 

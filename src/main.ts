@@ -64,11 +64,13 @@ async function worker() {
 }
 
 async function main() {
-	;({
+	const processTypes = {
 		api: () => api(),
 		worker: () => worker(),
 		repl: () => repl(),
-	}[process.env.PROCESS as Process]())
+	}
+
+	processTypes[process.env.PROCESS as Process]()
 }
 
 main()

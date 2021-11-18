@@ -5,7 +5,7 @@ services:
     # env_file: passed via command
     build:
       context: .
-      dockerfile: ./Docker/Dockerfile.${NODE_ENV}
+      dockerfile: Dockerfile.${NODE_ENV}
     volumes:
       - .:/home/src/backend
     ports:

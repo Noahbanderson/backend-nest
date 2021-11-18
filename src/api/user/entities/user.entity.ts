@@ -17,12 +17,12 @@ export class User extends BaseEntity {
 	@Column({ unique: true, nullable: false })
 	email: string
 
-	@Column('bool', { default: false, nullable: false })
+	@Column('bool', { name: 'is_admin', default: false, nullable: false })
 	isAdmin: boolean
 
-	@CreateDateColumn()
-	created_at: Date
+	@CreateDateColumn({name: 'created_at'})
+	createdAt: Date
 
-	@UpdateDateColumn()
-	updated_at: Date
+	@UpdateDateColumn({name: 'updated_at'})
+	updatedAt: Date
 }
