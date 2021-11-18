@@ -20,9 +20,9 @@ export class User extends BaseEntity {
 	@Column('bool', { name: 'is_admin', default: false, nullable: false })
 	isAdmin: boolean
 
-	@CreateDateColumn({name: 'created_at'})
+	@CreateDateColumn({ name: 'created_at' })
 	createdAt: Date
 
-	@UpdateDateColumn({name: 'updated_at'})
+	@UpdateDateColumn({ name: 'updated_at' })
 	updatedAt: Date
 }
