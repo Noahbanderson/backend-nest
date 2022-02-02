@@ -7,6 +7,7 @@ import {
 	PrimaryColumn,
 } from 'typeorm'
 import { IsEmail } from 'class-validator'
+import { ResourceWithOptions } from 'adminjs'
 
 @Entity()
 export class User extends BaseEntity {
@@ -25,4 +26,9 @@ export class User extends BaseEntity {
 
 	@UpdateDateColumn({ name: 'updated_at' })
 	updatedAt: Date
+}
+
+export const User_AdminResource: ResourceWithOptions = {
+	resource: User,
+	options: {},
 }

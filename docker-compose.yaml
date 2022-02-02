@@ -35,7 +35,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-    - redis_volume:/data
+      - redis_volume:/data
 volumes:
   db_volume:
   redis_volume:

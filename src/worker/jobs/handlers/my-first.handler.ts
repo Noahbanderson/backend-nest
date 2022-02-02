@@ -1,7 +1,8 @@
 import { InjectQueue } from '@nestjs/bull'
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { JobOptions, Queue } from 'bull'
 
+import { AppLogger } from 'logger'
 import { JobHandler } from 'worker/jobs/jobs.types'
 
 export interface MyFirstJobHandlerPayload {
@@ -16,7 +17,7 @@ export class MyFirstJobHandler implements JobHandler<MyFirstJobHandlerPayload> {
 
 	constructor(@InjectQueue('worker') private readonly workerQueue: Queue) {}
 
-	private readonly logger = new Logger(MyFirstJobHandler.name)
+	private readonly logger = new AppLogger(MyFirstJobHandler.name)
 	readonly jobName = MyFirstJobHandler.JOB_NAME
 
 	async enqueue(data: MyFirstJobHandlerPayload, options?: JobOptions) {

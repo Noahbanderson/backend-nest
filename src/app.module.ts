@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { BullModule } from '@nestjs/bull'
+import { AdminModule } from '@adminjs/nestjs'
+
+// import { adminFactory } from 'admin/admin.factory'
 
 import { ConfigModule, BullConfigService, TypeOrmConfigService } from 'config'
 
@@ -16,7 +19,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
 // ---- API ---- \\
-import { UserModule } from './api/user/user.module'
+import { UserModule, User } from 'api/user'
 
 @Module({
 	imports: [
@@ -25,6 +28,17 @@ import { UserModule } from './api/user/user.module'
 		BullModule.forRootAsync({ useExisting: BullConfigService }),
 		JobsModule, // Allows the all Job Handlers to be injected into services and enqueue jobs
 		AuthorizationModule,
+		// AdminModule.createAdminAsync({
+		// 	imports: [TypeOrmModule.forFeature([User])],
+		// 	...adminFactory, // your factory
+		// }),
+
+		AdminModule.createAdmin({
+			adminJsOptions: {
+				resources: [User],
+				rootPath: '/admin',
+			},
+		}),
 		// ---- API ---- \\
 		UserModule,
 	],

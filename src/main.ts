@@ -3,6 +3,9 @@ import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import dotenv from 'dotenv'
 import firebaseAdmin from 'firebase-admin'
+import * as ClassValidator from 'class-validator'
+import AdminJS from 'adminjs'
+import { Database, Resource } from '@adminjs/typeorm'
 import helmet from 'helmet'
 import csurf from 'csurf'
 // import compression from 'compression'
@@ -24,6 +27,9 @@ firebaseAdmin.initializeApp({
 	...firebaseConfig.params,
 	credential: firebaseAdmin.credential.cert(firebaseConfig.cert),
 })
+
+Resource.validate = ClassValidator.validate
+AdminJS.registerAdapter({ Database, Resource })
 
 async function api() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true })
