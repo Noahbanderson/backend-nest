@@ -4,19 +4,22 @@ import {
 	BaseEntity,
 	UpdateDateColumn,
 	CreateDateColumn,
-	PrimaryColumn,
+	PrimaryGeneratedColumn,
 } from 'typeorm'
 import { IsEmail } from 'class-validator'
 import { ResourceWithOptions } from 'adminjs'
 
 @Entity()
 export class User extends BaseEntity {
-	@PrimaryColumn({ unique: true, nullable: false })
-	uid: string
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
 	@IsEmail()
 	@Column({ unique: true, nullable: false })
 	email: string
+
+	@Column({ name: 'encrypted_password', nullable: false })
+	encryptedPassword: string
 
 	@Column('bool', { name: 'is_admin', default: false, nullable: false })
 	isAdmin: boolean

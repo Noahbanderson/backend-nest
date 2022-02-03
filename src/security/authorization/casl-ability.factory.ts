@@ -1,8 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { Ability, ExtractSubjectType, AbilityBuilder, AbilityClass } from '@casl/ability'
-import { auth, database } from 'firebase-admin'
 
-import { User } from 'api/user/entities/user.entity'
+import { User } from 'api/user'
 
 import { Action, AppAbility, Subjects } from '.'
 
@@ -13,7 +12,7 @@ export class CaslAbilityFactory {
 			Ability as AbilityClass<AppAbility>,
 		)
 
-		can(Action.Read, User, { uid: user.uid })
+		can(Action.Read, User, { id: user.id })
 
 		// can(Action.Update, Article, { authorId: user.id })
 		// cannot(Action.Delete, Article, { isPublished: true })
@@ -24,24 +23,5 @@ export class CaslAbilityFactory {
 			// Read https://casl.js.org/v5/en/guide/subject-type-detection#use-classes-as-subject-types for details
 			detectSubjectType: item => item.constructor as ExtractSubjectType<Subjects>,
 		})
-	}
-
-	async createForUserFirebase(user: auth.DecodedIdToken) {
-		const claims: any[] = await new Promise(resolve => {
-			try {
-				database()
-					.ref(`/claims/${user.uid}`)
-					.on('value', snapshot => resolve(snapshot.val()))
-			} catch (error) {
-				Logger.error(error)
-				resolve([])
-			}
-		})
-
-		console.log(claims)
-
-		return new Ability(claims, {
-			detectSubjectType: item => item.constructor as ExtractSubjectType<Subjects>,
-		}) as AppAbility
 	}
 }

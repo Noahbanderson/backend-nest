@@ -7,14 +7,14 @@ import { User } from '../entities/user.entity'
 /** An extensible class that can execute custom commands */
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-	async findByUid(uid: string) {
+	async findById(id: string) {
 		try {
 			const query = await this.query(
 				`
         SELECT * 
         FROM public.user 
-        WHERE uid = $1;`,
-				[uid],
+        WHERE id = $1;`,
+				[id],
 			)
 			const result = query[0] as User
 

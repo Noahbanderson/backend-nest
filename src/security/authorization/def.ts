@@ -1,5 +1,5 @@
 import { Ability, InferSubjects } from '@casl/ability'
-import { User } from 'api/user/entities/user.entity'
+import { User } from 'api/user'
 
 export enum Action {
 	Manage = 'manage',

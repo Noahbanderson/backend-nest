@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common'
 import { CheckPolicies } from 'decorators/check-policies.decorator'
 
-import { CreateUserDto, UpdateUserDto } from './dto'
+import { UpdateUserDto } from './dto'
 import { UserPolicyManager } from './policies/user.policy'
 import { UserService } from './user.service'
 
@@ -9,11 +9,7 @@ import { UserService } from './user.service'
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	// @CheckPolicies(UserPolicyManager.create)
-	@Post()
-	create(@Body() createUserDto: CreateUserDto) {
-		return this.userService.create(createUserDto)
-	}
+	// Use the auth/sign-up endpoint to register new users
 
 	@CheckPolicies(UserPolicyManager.manage)
 	@Get()
@@ -23,20 +19,20 @@ export class UserController {
 	}
 
 	@CheckPolicies(UserPolicyManager.read)
-	@Get(':token')
-	findOne(@Param('token') token: string) {
-		return this.userService.findOne(token)
+	@Get(':id')
+	findOne(@Param('id') id: string) {
+		return this.userService.findById(id)
 	}
 
 	@CheckPolicies(UserPolicyManager.update)
-	@Patch(':token')
-	update(@Param('token') token: string, @Body() updateUserDto: UpdateUserDto) {
-		return this.userService.update(token, updateUserDto)
+	@Patch(':id')
+	update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+		return this.userService.update(id, updateUserDto)
 	}
 
 	@CheckPolicies(UserPolicyManager.delete)
-	@Delete(':token')
-	remove(@Param('token') token: string) {
-		return this.userService.remove(token)
+	@Delete(':id')
+	remove(@Param('id') id: string) {
+		return this.userService.remove(id)
 	}
 }

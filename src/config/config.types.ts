@@ -11,6 +11,7 @@ export type EnvConfig = {
 	PG_PASSWORD: string
 	PG_DATABASE: string
 	REDIS_HOST: string
+	JWT_SECRET: string
 	// [key: string]: string;
 }
 

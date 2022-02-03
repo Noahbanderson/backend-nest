@@ -5,5 +5,5 @@ import { CreateUserDto } from '.'
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
 	@IsNotEmpty()
-	uid: string
+	id: string
 }

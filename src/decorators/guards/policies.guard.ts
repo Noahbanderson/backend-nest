@@ -8,8 +8,8 @@ import { AppRequest } from 'types/general.types'
 @Injectable()
 export class PoliciesGuard implements CanActivate {
 	constructor(
-		private reflector: Reflector,
-		private caslAbilityFactory: CaslAbilityFactory,
+		private readonly reflector: Reflector,
+		private readonly caslAbilityFactory: CaslAbilityFactory,
 	) {}
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -20,7 +20,6 @@ export class PoliciesGuard implements CanActivate {
 			) || []
 
 		const { user } = context.switchToHttp().getRequest<AppRequest>()
-		// const ability = await this.caslAbilityFactory.createForUserFirebase(user.firebaseUser)
 		const ability = await this.caslAbilityFactory.createForUser(user)
 
 		return policyHandlers.every(handler => this.execPolicyHandler(handler, ability))

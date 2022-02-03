@@ -1,10 +1,7 @@
-import { Request as Req } from 'express'
-import firebaseAdmin from 'firebase-admin'
+import { Request } from 'express'
 
-import { User } from 'api/user/entities/user.entity'
+import { User } from 'api/user'
 
-export type AppRequest = Req & {
-	user: User & {
-		firebaseUser: firebaseAdmin.auth.DecodedIdToken
-	}
+export type AppRequest = Request & {
+	user: User
 }
