@@ -1,3 +1,4 @@
+import path from 'path'
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
@@ -18,10 +19,12 @@ import { AppLogger } from 'logger'
 import { AppModule } from 'app.module'
 import { WorkerAppModule } from 'worker/worker.app.module'
 
-dotenv.config({ path: `./config/${process.env.ENV}.env` })
+dotenv.config({ path: path.join(__dirname, '..', `config/${process.env.ENV}.env`) })
 
 Resource.validate = ClassValidator.validate
 AdminJS.registerAdapter({ Database, Resource })
+
+declare const module: any
 
 async function api() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true })
@@ -52,6 +55,11 @@ async function api() {
 	await app.listen(port, '0.0.0.0')
 
 	AppLogger.log(`Backend now listening on port: ${port}`)
+
+	if (module.hot) {
+		module.hot.accept()
+		module.hot.dispose(() => app.close())
+	}
 }
 
 async function worker() {

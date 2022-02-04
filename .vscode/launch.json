@@ -12,9 +12,10 @@
 			"type": "node",
 			"request": "attach",
 			"name": "Api: nestjs",
-			"remoteRoot": "/src/app",
+			"remoteRoot": "/home/src/backend",
 			"localRoot": "${workspaceFolder}",
 			"protocol": "inspector",
+			"trace": true,
 			"restart": true,
 			"skipFiles": ["<node_internals>/**"]
 		},
@@ -22,9 +23,10 @@
 			"type": "node",
 			"request": "attach",
 			"name": "Worker: nestjs",
-			"remoteRoot": "/src/app",
+			"remoteRoot": "/home/src/backend",
 			"localRoot": "${workspaceFolder}",
 			"protocol": "inspector",
+			"trace": true,
 			"restart": true,
 			"skipFiles": ["<node_internals>/**"],
 			"port": 9339

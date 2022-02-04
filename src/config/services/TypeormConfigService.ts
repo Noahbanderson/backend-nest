@@ -17,6 +17,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			database: this.configService.get('PG_DATABASE'),
 			synchronize: process.env.NODE_ENV !== 'prod',
 			logging: true,
+			keepConnectionAlive: true,
 			migrationsRun: true,
 			autoLoadEntities: true,
 			migrations: [__dirname + '/db/migrations/**/*{.ts,.js}'],

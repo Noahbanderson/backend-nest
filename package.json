@@ -12,8 +12,8 @@
     "start:dev:docker": "ENV=dev npm run docker",
     "start:dev": "nest start --watch",
     "start:debug": "concurrently -c \"bgWhite.grey.bold,bgBlue.white.bold\" -n api,worker \"npm:start:debug:api\" \"npm:start:debug:worker\"",
-    "start:debug:api": "ENV=dev PROCESS=api nest start --debug 0.0.0.0:9229 --watch --preserveWatchOutput",
-    "start:debug:worker": "ENV=dev PROCESS=worker nest start --debug 0.0.0.0:9339 --watch --preserveWatchOutput",
+    "start:debug:api": "ENV=dev PROCESS=api nest start --debug 0.0.0.0:9229 --watch --preserveWatchOutput --webpack --webpackPath webpack-hmr.config.js",
+    "start:debug:worker": "ENV=dev PROCESS=worker nest start --debug 0.0.0.0:9339 --watch --preserveWatchOutput --webpack --webpackPath webpack-hmr.config.js",
     "start:prod:docker": "ENV=prod npm run docker",
     "start:prod": "concurrently -c \"bgWhite.grey.bold,bgBlue.white.bold\" -n api,worker \"npm:start:prod:api\" \"npm:start:prod:worker\"",
     "start:prod:api": "ENV=prod PROCESS=api node dist/src/main",
@@ -93,12 +93,15 @@
     "husky": "^7.0.4",
     "jest": "^27.4.7",
     "prettier": "^2.5.1",
+    "run-script-webpack-plugin": "0.0.11",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.12.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "webpack": "^5.68.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "config": {
     "commitizen": {
