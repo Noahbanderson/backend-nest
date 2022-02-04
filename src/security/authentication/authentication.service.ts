@@ -17,7 +17,10 @@ export class AuthenticationService {
 		private readonly userService: UserService,
 		private readonly configService: ConfigService,
 		private readonly jwtService: JwtService,
-	) {}
+	) {
+		// For some reason, the context of `validateLocal` gets cleared, not sure why.
+		this.validateLocal = this.validateLocal.bind(this)
+	}
 
 	private readonly logger = new AppLogger(AuthenticationService.name)
 
@@ -31,8 +34,6 @@ export class AuthenticationService {
 				this.logger.error(err)
 				return false
 			})
-
-		console.log('hello')
 
 		return isValid ? user : null
 	}

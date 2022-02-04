@@ -21,18 +21,20 @@ import { JobsModule } from './jobs/jobs.module'
 				},
 			}),
 		}),
-		ConfigModule.register({ folder: '../config' }),
+		ConfigModule.register({ folder: 'config' }),
 		TypeOrmModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
 			useFactory: async (configService: ConfigService) =>
 				({
 					type: 'postgres' as const,
+					name: 'worker-connection',
 					host: configService.get('PG_HOST'),
 					port: 5432,
 					username: configService.get('PG_USERNAME'),
 					password: configService.get('PG_PASSWORD'),
 					database: configService.get('PG_DATABASE'),
+					keepConnectionAlive: true,
 					autoLoadEntities: true,
 					synchronize: process.env.NODE_ENV !== 'production',
 				} as TypeOrmModuleOptions),

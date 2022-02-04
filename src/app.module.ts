@@ -23,7 +23,7 @@ import { UserModule } from 'api/user'
 
 @Module({
 	imports: [
-		ConfigModule.register({ folder: '../config' }),
+		ConfigModule.register({ folder: 'config' }),
 		TypeOrmModule.forRootAsync({ useExisting: TypeOrmConfigService }),
 		BullModule.forRootAsync({ useExisting: BullConfigService }),
 		AdminModule.createAdminAsync(adminFactory),

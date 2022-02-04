@@ -24,16 +24,16 @@ export class UserService {
 	}
 
 	async findById(id: string) {
-		return await this.userRepository.findById(id)
+		return await this.userRepository.findOne(id)
 	}
 
 	async findByEmail(email: string) {
 		const user = await this.userRepository.findOne({ where: { email } })
+
 		return user ?? null
 	}
 
-	update(token: string, updateUserDto: UpdateUserDto) {
-		console.log(updateUserDto)
+	update(token: string, _updateUserDto: UpdateUserDto) {
 		return `This action updates a #${token} user`
 	}
 

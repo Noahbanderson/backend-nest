@@ -52,6 +52,8 @@ imports are to import a file from outside the scope of the module directory, but
 
 Controllers and Resolvers handle authentication (presence or absence of `@IsPublic()`)
 
+If Webpack HMR is not properly reloading, down the containers, remove the `dist/` and `/node_modules` folders, run `npm i`, then restart the app.
+
 ## Creating new resources
 
 ### CLI

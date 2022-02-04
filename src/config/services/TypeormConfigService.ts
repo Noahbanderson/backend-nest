@@ -7,6 +7,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 	constructor(private readonly configService: ConfigService) {}
 
+	/** Remember to update the {@link WorkerAppModule#TypeOrmModule} config */
 	createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
 			type: 'postgres' as const,

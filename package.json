@@ -12,7 +12,7 @@
     "start:dev:docker": "ENV=dev npm run docker",
     "start:dev": "nest start --watch",
     "start:debug": "concurrently -c \"bgWhite.grey.bold,bgBlue.white.bold\" -n api,worker \"npm:start:debug:api\" \"npm:start:debug:worker\"",
-    "start:debug:api": "ENV=dev PROCESS=api nest start --debug 0.0.0.0:9229 --watch --preserveWatchOutput --webpack --webpackPath webpack-hmr.config.js",
+    "start:debug:api": "ENV=dev PROCESS=api nest start --debug 0.0.0.0:9229 --preserveWatchOutput --tsc --watch --webpack --webpackPath webpack-hmr.config.js",
     "start:debug:worker": "ENV=dev PROCESS=worker nest start --debug 0.0.0.0:9339 --watch --preserveWatchOutput --webpack --webpackPath webpack-hmr.config.js",
     "start:prod:docker": "ENV=prod npm run docker",
     "start:prod": "concurrently -c \"bgWhite.grey.bold,bgBlue.white.bold\" -n api,worker \"npm:start:prod:api\" \"npm:start:prod:worker\"",

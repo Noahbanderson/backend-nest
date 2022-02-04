@@ -18,6 +18,7 @@ export class User extends BaseEntity {
 	@Column({ unique: true, nullable: false })
 	email: string
 
+	// TODO: Add @Exclude to this property
 	@Column({ name: 'encrypted_password', nullable: false })
 	encryptedPassword: string
 

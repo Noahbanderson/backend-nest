@@ -50,23 +50,33 @@ async function api() {
 		// app.use(compression());
 	}
 
-	const port = process.env.PORT ?? '3333'
+	const port = __dirname.includes('dist') ? parseInt(process.env.PORT ?? '3333') : 4444
 
 	await app.listen(port, '0.0.0.0')
-
-	AppLogger.log(`Backend now listening on port: ${port}`)
 
 	if (module.hot) {
 		module.hot.accept()
 		module.hot.dispose(() => app.close())
 	}
+
+	AppLogger.log(`Backend now listening on port: ${port}`)
 }
 
 async function worker() {
 	const app = await NestFactory.create<NestExpressApplication>(WorkerAppModule, {
 		// httpsOptions
 	})
-	await app.listen(3002, '0.0.0.0')
+
+	const port = __dirname.includes('dist') ? 3334 : 4443
+
+	await app.listen(port, '0.0.0.0')
+
+	if (module.hot) {
+		module.hot.accept()
+		module.hot.dispose(() => app.close())
+	}
+
+	AppLogger.log(`Worker now listening on port: ${port}`)
 }
 
 async function main() {

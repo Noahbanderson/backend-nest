@@ -12,6 +12,7 @@ export type EnvConfig = {
 	PG_DATABASE: string
 	REDIS_HOST: string
 	JWT_SECRET: string
+	ADMIN_COOKIE_SECRET: string
 	// [key: string]: string;
 }
 
