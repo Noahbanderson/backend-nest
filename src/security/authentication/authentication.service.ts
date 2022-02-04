@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as bcryptjs from 'bcryptjs'
 
@@ -32,6 +32,8 @@ export class AuthenticationService {
 				return false
 			})
 
+		console.log('hello')
+
 		return isValid ? user : null
 	}
 
@@ -51,10 +53,13 @@ export class AuthenticationService {
 	async signUp(body: SignUpDto) {
 		const salt = 10
 		const hash = await bcryptjs.hash(body.password, salt)
-
-		return await this.userService.create({
-			email: body.email,
-			encryptedPassword: hash,
-		})
+		try {
+			return await this.userService.create({
+				email: body.email,
+				encryptedPassword: hash,
+			})
+		} catch (error) {
+			throw new BadRequestException(error.message)
+		}
 	}
 }

@@ -16,8 +16,7 @@ export class UserService {
 	) {}
 
 	async create(createUserDto: CreateUserDto) {
-		const user = await this.userRepository.create(createUserDto).save()
-		return { success: true }
+		return await this.userRepository.create(createUserDto).save()
 	}
 
 	findAll() {
