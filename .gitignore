@@ -4,6 +4,7 @@ firebase.config.json
 config/ormconfig.json
 
 # compiled output
+/documentation
 /dist
 /node_modules
 
